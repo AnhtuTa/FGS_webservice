@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const Database = require('./Database.js');
 var ReturnMessage = require("./ReturnMessage");
+var hotelArray = require("./hotel_array")
 
 class HotelDAO {
     constructor() {
@@ -13,24 +14,40 @@ class HotelDAO {
      * select ... from ... limit 4  (biến nums ko chỉ rõ)
      */
     async getAllHotels(start, nums) {
-        var sql = "SELECT * FROM hotel LIMIT " + start;
-        if(nums) sql = sql + ", " + nums;
-        console.log('sql = ' + sql);
-        var result = null;
-        await this.db.query(sql).then(function(rows) {
-            result = rows;
-        });
+        // var sql = "SELECT * FROM hotel LIMIT " + start;
+        // if(nums) sql = sql + ", " + nums;
+        // console.log('sql = ' + sql);
+        // var result = null;
+        // await this.db.query(sql).then(function(rows) {
+        //     result = rows;
+        // });
+        // return result;
+
+        var sid = start;
+        if(sid >= hotelArray.length) return null;
+        var eid = sid + nums - 1;
+        if(eid >= hotelArray.length) eid = hotelArray.length - 1;
+
+        var result = [];
+        for(var i = sid; i <= eid; i++) {
+            result.push(hotelArray[i]);
+        }
         return result;
     }
 
     async getHotel(id) {
-        var sql = "SELECT * FROM hotel WHERE id = " + id;
-        console.log('sql = ' + sql);
-        var result = null;
-        await this.db.query(sql).then(function(rows) {
-            result = rows[0];
-        });
-        return result;
+        // var sql = "SELECT * FROM hotel WHERE id = " + id;
+        // console.log('sql = ' + sql);
+        // var result = null;
+        // await this.db.query(sql).then(function(rows) {
+        //     result = rows[0];
+        // });
+        // return result;
+
+        for(var i = 0; i < hotelArray.length; i++) {
+            if(hotelArray[i].id == id) return hotelArray[i];
+        }
+        return null;
     }
 
     /**

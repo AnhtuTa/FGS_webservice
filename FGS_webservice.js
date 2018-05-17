@@ -19,7 +19,7 @@ var schema = buildSchema(`
         hotel_id: Int
         name: String
         star: Int
-        hotel_avatar: String
+        avatar: String
         hotel_url: String
         image_urls: String
         street: String
@@ -36,7 +36,7 @@ var schema = buildSchema(`
         hotel_id: Int
         name: String
         star: Int
-        hotel_avatar: String
+        avatar: String
         hotel_url: String
         image_urls: String
         street: String
@@ -66,8 +66,9 @@ var schema = buildSchema(`
     type Query {
         hotels(start:Int!, nums: Int) : [Hotel]
         hotel(id: Int!): Hotel
-        provinces: [Province]
+        allProvinces: [Province]
         province(id: Int!): Province
+        allDistricts: [District]
         districts(province_id: Int!): [District]
     }
     type Mutation {
@@ -96,11 +97,14 @@ var root = {
     deleteHotel: function({id}) {
         return hotelDAO.deleteHotel(id);
     },
-    provinces: function() {
+    allProvinces: function() {
         return provinceDAO.getAllProvinces();
     },
     province: function({id}) {
         return provinceDAO.getProvince(id);
+    },
+    allDistricts: function() {
+        return districtDAO.getAllDistricts();
     },
     districts: function({province_id}) {
         return districtDAO.getDistricts(province_id);
@@ -115,3 +119,25 @@ app.use('/graphql', graphqlHTTP({
 }));
 app.listen(process.env.PORT || 3000);
 //console.log('Running a GraphQL API server at localhost:3000/graphql');
+
+/*
+query {
+	hotels(start: 0, nums: 1000) {
+    id
+    hotel_id
+    name
+    star
+    avatar
+    hotel_url
+    image_urls
+    street
+    district
+    city
+    latitude
+    longitude
+    review_point
+    num_reviews
+    price
+  }
+}
+*/

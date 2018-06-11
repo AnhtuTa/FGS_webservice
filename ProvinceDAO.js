@@ -9,30 +9,30 @@ class ProvinceDAO {
     }
 
     async getAllProvinces() {
-        // var sql = "SELECT p.id, p._name AS name FROM province p LIMIT 1000";
-        // console.log('sql = ' + sql);
-        // var result = null;
-        // await this.db.query(sql).then(function(rows) {
-        //     result = rows;
-        // });
-        // return result;
+        var sql = "SELECT p.id, p._name AS name FROM province p LIMIT 1000";
+        console.log('sql = ' + sql);
+        var result = null;
+        await this.db.query(sql).then(function(rows) {
+            result = rows;
+        });
+        return result;
 
-        return provinceArray;
+        // return provinceArray;
     }
 
     async getProvince(id) {
-        // var sql = "SELECT p.id, p._name AS name FROM province p WHERE id = " + id;
-        // console.log('sql = ' + sql);
-        // var result = null;
-        // await this.db.query(sql).then(function(rows) {
-        //     result = rows[0];
-        // });
-        // return result;
+        var sql = "SELECT p.id, p._name AS name FROM province p WHERE id = " + id;
+        console.log('sql = ' + sql);
+        var result = null;
+        await this.db.query(sql).then(function(rows) {
+            result = rows[0];
+        });
+        return result;
 
-        for(var i = 0; i < provinceArray.length; i++) {
-            if(provinceArray[i].id == id) return provinceArray[i];
-        }
-        return null;
+        // for(var i = 0; i < provinceArray.length; i++) {
+        //     if(provinceArray[i].id == id) return provinceArray[i];
+        // }
+        // return null;
     }
 }
 
